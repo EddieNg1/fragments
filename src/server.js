@@ -1,6 +1,3 @@
-// Read environment variables from an .env file (if present)
-require('dotenv').config();
-
 // We want to gracefully shutdown our server
 const stoppable = require('stoppable');
 
