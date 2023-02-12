@@ -137,6 +137,7 @@ class Fragment {
       throw new Error('data must be a Buffer');
     } else {
       this.save();
+      this.size = Buffer.byteLength(data);
       return writeFragmentData(this.ownerId, this.id, data);
     }
   }
