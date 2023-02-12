@@ -38,4 +38,26 @@ describe('database calls', () => {
     const result = await writeFragment(data);
     expect(result).toBe(undefined);
   });
+
+  test('readFragmentData() returns data that we writeFragmentData() into the db', async () => {
+    const data = {
+      ownerId: 'testOwner',
+      id: 'testID',
+      fragment: 'test'
+    };
+    await writeFragmentData(data);
+    const result = await readFragmentData('testOwner', 'testID');
+    expect(result).toEqual({fragment: 'test'});
+  })
+
+  test('writeFragmentData() returns nothing', async () => {
+    const data = {
+      ownerId: 'testOwner',
+      id: 'testID',
+      fragment: 'test'
+    };
+    await writeFragmentData(data);
+    const result = await writeFragment(data);
+    expect(result).toBe(undefined);
+  });
 });
