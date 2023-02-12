@@ -34,7 +34,6 @@ describe('database calls', () => {
       id: 'testID',
       fragment: 'test'
     };
-    await writeFragment(data);
     const result = await writeFragment(data);
     expect(result).toBe(undefined);
   });
@@ -52,7 +51,6 @@ describe('database calls', () => {
     const data = {
       fragment: 'test'
     };
-    await writeFragmentData('testOwner', 'testID', data);
     const result = await writeFragment('testOwner', 'testID', data);
     expect(result).toBe(undefined);
   });
