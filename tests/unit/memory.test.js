@@ -52,7 +52,7 @@ describe('database calls', () => {
     const data = {
       fragment: 'test'
     };
-    await writeFragmentData(data);
+    await writeFragmentData('testOwner', 'testID', data);
     const result = await writeFragment('testOwner', 'testID', data);
     expect(result).toBe(undefined);
   });
