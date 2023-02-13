@@ -15,7 +15,8 @@ describe('POST /v1/fragments', () => {
     const res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'text/plain');
+      .set('Content-Type', 'text/plain')
+      .send('testData');
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('ok');
   });
@@ -24,7 +25,8 @@ describe('POST /v1/fragments', () => {
     const res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'text/plain');
+      .set('Content-Type', 'text/plain')
+      .send('testData');
     expect(res.headers['location']).toBe(
       'http://localhost:8080/v1/fragments/' + res.body.fragment.id
     );
@@ -34,7 +36,8 @@ describe('POST /v1/fragments', () => {
     const res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'image/png');
+      .set('Content-Type', 'image/png')
+      .send('testData');
     expect(res.status).toEqual(401);
   });
 
