@@ -34,7 +34,7 @@ class Fragment {
     if (id) {
       this.id = id;
     } else {
-      this.id = randomUUID();
+      this.id = randomUUID().toString();
     }
     if (!ownerId) {
       logger.Error('ownerID is required');
