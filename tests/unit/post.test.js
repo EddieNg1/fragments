@@ -48,7 +48,7 @@ describe('POST /v1/fragments', () => {
       .send('testData');
 
     expect(res.body.fragment).toHaveProperty('id');
-    expect(res.body.fragment).toHaveProperty('ownerId', hash(res.body.fragnebt.ownerId));
+    expect(res.body.fragment).toHaveProperty('ownerId', hash(res.body.fragment.ownerId));
     expect(res.body.fragment).toHaveProperty('type', 'text/plain');
     expect(res.body.fragment).toHaveProperty('created');
     expect(res.body.fragment).toHaveProperty('size', Buffer.byteLength('testData'));

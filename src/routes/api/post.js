@@ -4,7 +4,7 @@ const { createSuccessResponse, createErrorResponse } = require('../../response')
 const logger = require('../../logger');
 
 module.exports = async (req, res) => {
-  //const api = process.env.API_URL || req.headers.host;
+  const api = process.env.API_URL || req.headers.host;
 
   const data = req.body;
   const user = req.user;
@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
     await fragment.setData(data);
 
     logger.info('Successfully created fragment');
-    res.setHeader('Location', `${process.env.API_URL}/v1/fragments/${fragment.id}`);
+    res.setHeader('Location', `${api}/v1/fragments/${fragment.id}`);
     res.status(200).json(createSuccessResponse({ fragment }));
   } catch (err) {
     logger.warn(err.message, 'Failed to create fragment');
