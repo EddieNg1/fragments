@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     await fragment.save();
     await fragment.setData(data);
     res.setHeader('Content-type', fragment.type);
-    res.setHeader('Location', api + '/v1/fragments/' + fragment.id);
+    res.setHeader('Location', `${api}/v1/fragments/${fragment.id}`);
     res.status(200).json(createSuccessResponse({ fragment }));
     logger.info('Successfully created fragment');
   } catch (err) {

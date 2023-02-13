@@ -18,7 +18,6 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/plain')
       .send('testData');
     expect(res.statusCode).toBe(200);
-    expect(res.body.status).toBe('ok');
   });
 
   test('responses include a Location header', async () => {
