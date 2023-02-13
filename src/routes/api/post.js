@@ -11,13 +11,6 @@ module.exports = async (req, res) => {
   const contentType = req.headers['content-type'];
   logger.debug(`Fragment content type is ${contentType}`);
   try {
-    // const fragment = new Fragment({ ownerId: user, type: contentType });
-    // await fragment.save();
-    // await fragment.setData(data);
-    // res.setHeader('Content-type', fragment.type);
-    // res.setHeader('Location', `${api}/v1/fragments/${fragment.id}`);
-    // res.status(200).json(createSuccessResponse({ fragment }));
-    // logger.info('Successfully created fragment');
     const fragment = new Fragment({
       ownerId: user,
       type: contentType,
