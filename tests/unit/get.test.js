@@ -21,4 +21,13 @@ describe('GET /v1/fragments', () => {
   });
 
   // TODO: we'll need to add tests to check the contents of the fragments array later
+
+  // Authenticated user with invalid expand value should give 400
+  test('authenticated requests with invalid expand value should return 400 status', async () => {
+    const res = await request(app)
+      .get('/v1/fragments?expand=2')
+      .auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(400);
+    expect(Array.isArray(res.body.fragments)).toBe(true);
+  });
 });
