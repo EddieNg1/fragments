@@ -1,7 +1,7 @@
 #Docker image for Fragments Microservice
 
-# Use node version 18.13.0
-FROM node:18.13.0
+# Use node version 18.14-alpine
+FROM node:18.14-alpine@sha256:fdbd2737cb94e25cae3db9fc5d7dc073c9675dad34239bfb3948c499a6908c19 AS dependencies
 
 LABEL maintainer="Eddie Ng <eng42@myseneca.ca>"
 LABEL description="Fragments node.js microservice"
@@ -21,19 +21,29 @@ ENV NPM_CONFIG_COLOR=false
 WORKDIR /app
 
 # Copy the package.json and package-lock.json files into /app
-COPY package*.json /app/
+COPY --chown=node:node package*.json /app/
 
 # Install node dependencies defined in package-lock.json
 RUN npm install
 
+##############################################################
+
+FROM node:18.14-alpine@sha256:fdbd2737cb94e25cae3db9fc5d7dc073c9675dad34239bfb3948c499a6908c19 AS build
+
+WORKDIR /app
+
+COPY --chown=node:node --from=dependencies /app /app
+
 # Copy src to /app/src/
-COPY ./src ./src
+COPY --chown=node:node ./src ./src
 
 # Copy our HTPASSWD file
-COPY ./tests/.htpasswd ./tests/.htpasswd
+COPY --chown=node:node ./tests/.htpasswd ./tests/.htpasswd
+
+USER node
 
 # Start the container by running our server
-CMD npm start
+CMD ["node", "src/index.js"]
 
 # We run our service on port 8080
 EXPOSE 8080
