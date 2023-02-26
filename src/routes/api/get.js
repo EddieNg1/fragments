@@ -15,6 +15,6 @@ module.exports = async (req, res) => {
   } else {
     expand = true;
   }
-  const fragments = await Fragment(req.user, expand);
+  const fragments = await Fragment.byUser(req.user, expand);
   res.status(200).json(createSuccessResponse({ fragments }));
 };
