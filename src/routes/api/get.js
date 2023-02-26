@@ -16,6 +16,8 @@ module.exports = async (req, res) => {
       const error = new Error('Invalid expand query');
       error.status = 400;
       throw error;
+    } else {
+      expand = true;
     }
     const fragments = await Fragment.byUser(req.user, expand);
     res.status(200).json(createSuccessResponse({ fragments }));
