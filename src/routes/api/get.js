@@ -11,6 +11,10 @@ module.exports = async (req, res) => {
     var expand = false;
     if (req.query.expand === '1') {
       expand = true;
+    } else if (Object.keys(req.query).length > 0) {
+      const error = new Error('Invalid expand value');
+      error.status = 400;
+      throw error;
     }
     const fragments = await Fragment.byUser(req.user, expand);
     res.status(200).json(createSuccessResponse({ fragments }));
