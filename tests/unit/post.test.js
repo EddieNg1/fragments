@@ -17,7 +17,7 @@ describe('POST /v1/fragments', () => {
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/plain')
       .send('testData');
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(201);
   });
 
   test('responses include a Location header', async () => {
@@ -37,7 +37,7 @@ describe('POST /v1/fragments', () => {
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'image/png')
       .send('testData');
-    expect(res.status).toEqual(500);
+    expect(res.status).toEqual(415);
   });
 
   test('Reponses include all necessary and expected properties', async () => {

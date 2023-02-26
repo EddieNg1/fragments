@@ -38,6 +38,7 @@ class Fragment {
     }
     if (!ownerId) {
       logger.Error('ownerID is required');
+      throw new Error('ownerID is missing');
     } else {
       this.ownerId = ownerId;
     }
@@ -53,11 +54,13 @@ class Fragment {
     }
     if (!Fragment.isSupportedType(type)) {
       logger.Error(`${type} is not a supported type`);
+      throw new Error('Unsupported type');
     } else {
       this.type = type;
     }
     if (typeof size != 'number' || size < 0) {
       logger.Error(`${size} must be a positive number`);
+      throw new Error('Invalid size');
     } else {
       this.size = size;
     }
@@ -69,10 +72,10 @@ class Fragment {
    * @param {boolean} expand whether to expand ids to full fragments
    * @returns Promise<Array<Fragment>>
    */
-  static async byUser(ownerId, expand = false) {
+  static byUser(ownerId, expand = false) {
     logger.info(`Getting fragments for user ${ownerId}`);
     try {
-      return await listFragments(ownerId, expand);
+      return listFragments(ownerId, expand);
     } catch (err) {
       throw new Error('listFragments by user failed');
     }
@@ -136,8 +139,8 @@ class Fragment {
       logger.debug(`data is of type ${typeof data}`);
       throw new Error('data must be a Buffer');
     } else {
-      this.save();
       this.size = Buffer.byteLength(data);
+      this.save();
       return writeFragmentData(this.ownerId, this.id, data);
     }
   }
