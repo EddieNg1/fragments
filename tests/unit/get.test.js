@@ -44,7 +44,7 @@ describe('GET /v1/fragments', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('ok');
     expect(Array.isArray(res.body.fragments)).toBe(true);
-    expect(res.body.fragments[0]).toHaveProperty('id');
+    expect(res.body.fragments).toHaveProperty('id');
     expect(res.body.fragments[0]).toHaveProperty('ownerId', hash('user1@email.com'));
     expect(res.body.fragments[0]).toHaveProperty('type', 'text/plain');
     expect(res.body.fragments[0]).toHaveProperty('created');
