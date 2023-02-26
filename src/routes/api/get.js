@@ -8,7 +8,7 @@ const { createSuccessResponse } = require('../../response');
  */
 module.exports = async (req, res) => {
   var expand = false;
-  if (!req.query.expand.length || req.query.expand != '1') {
+  if (!req.query.expand.length == 0 || req.query.expand != '1') {
     const error = new Error('Invalid expand query');
     error.status = 400;
     throw error;
@@ -16,5 +16,6 @@ module.exports = async (req, res) => {
     expand = true;
   }
   const fragments = await Fragment.byUser(req.user, expand);
+  res.setHeader('Location', `${process.env.API_URL}/v1/fragments/${fragments.id}`);
   res.status(200).json(createSuccessResponse({ fragments }));
 };
