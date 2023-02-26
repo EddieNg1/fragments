@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   var expand = false;
   try {
     if (
-      Object.keys(req.query).has('expand') > 0 &&
+      Object.keys(req.query).length > 0 &&
       (!req.query.expand.length || req.query.expand !== '1')
     ) {
       const error = new Error('Invalid expand query');
