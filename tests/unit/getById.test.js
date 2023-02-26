@@ -32,10 +32,9 @@ describe('GET /v1/fragments:id/info', () => {
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/plain')
       .send('testData');
-    let id1 = res1.body.fragment.id;
-    expect(id1).toEqual('123');
+    let id = res1.body.fragment.id;
     const res = await request(app)
-      .get(`/v1/fragments${id1}/info`)
+      .get(`/v1/fragments/${id}/info`)
       .auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('ok');
