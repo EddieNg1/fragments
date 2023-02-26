@@ -7,8 +7,8 @@ const { Fragment } = require('../../model/fragment');
  */
 module.exports = async (req, res) => {
   // TODO: this is just a placeholder to get something working...
-  var expand = false;
   try {
+    var expand = false;
     if (Object.keys(req.query).length > 0) {
       if (req.query.expand.length === 0) {
         const error = new Error('Missing expand value');
