@@ -5,6 +5,7 @@ const { Fragment } = require('../../model/fragment');
  * The main entry-point for the v1 version of the fragments API.
  */
 const express = require('express');
+const { info } = require('./getById');
 
 // Create a router on which to mount our API endpoints
 const router = express.Router();
@@ -31,4 +32,5 @@ router.get('/fragments', require('./get'));
 // You can use Buffer.isBuffer(req.body) to test if it was parsed by the raw body parser.
 router.post('/fragments', rawBody(), require('./post'));
 router.get('/fragments/:id', require('./getById'));
+router.get('/fragments/:id/info', info);
 module.exports = router;
