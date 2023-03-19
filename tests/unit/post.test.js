@@ -20,6 +20,33 @@ describe('POST /v1/fragments', () => {
     expect(res.statusCode).toBe(201);
   });
 
+  test('authenticated users can create a markdown fragment', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown')
+      .send('# testData');
+    expect(res.statusCode).toBe(201);
+  });
+
+  test('authenticated users can create an HTML fragment', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send('<h1>testData</h1>');
+    expect(res.statusCode).toBe(201);
+  });
+
+  test('authenticated users can create a JSON fragment', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'application/json')
+      .send({ data: 'testData' });
+    expect(res.statusCode).toBe(201);
+  });
+
   test('responses include a Location header', async () => {
     const res = await request(app)
       .post('/v1/fragments')
