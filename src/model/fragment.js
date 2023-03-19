@@ -17,11 +17,11 @@ const {
 
 const validTypes = [
   `text/plain`,
-  /*
-   Currently, only text/plain is supported. Others will be added later.
   `text/markdown`,
   `text/html`,
   `application/json`,
+  /*
+   Currently, only text/* or application/json is supported. Others will be added later.
   `image/png`,
   `image/jpeg`,
   `image/webp`,
