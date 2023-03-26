@@ -5,6 +5,7 @@ module.exports = async (req, res) => {
     const fragment = await Fragment.byId(req.user, req.params.id);
     const data = await fragment.getData();
     res.status(200).send(data);
+    console.log('TEST');
   } catch (error) {
     throw new Error('Error getting fragment data by ID');
   }
