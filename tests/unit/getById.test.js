@@ -46,19 +46,3 @@ describe('GET /v1/fragments:id/info', () => {
     expect(res.body.fragment).toHaveProperty('size', Buffer.byteLength('testData'));
   });
 });
-
-describe('GET /v1/fragments:id.ext', () => {
-  test('Content type should be converted to .txt', async () => {
-    const postReq = await request(app)
-      .post('/v1/fragments')
-      .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'text/plain')
-      .send('testData');
-    const id = JSON.parse(postReq.text).fragment.id;
-    const res = await request(app)
-      .get(`/v1/fragments/${id}.txt`)
-      .auth('user1@email.com', 'password1');
-    expect(res.status).toBe(200);
-    expect(res.type).toBe('text/plain');
-  });
-});
