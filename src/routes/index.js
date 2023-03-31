@@ -1,5 +1,5 @@
 // src/routes/index.js
-
+const { hostname } = require('os');
 const express = require('express');
 
 // Our authentication middleware
@@ -33,6 +33,7 @@ router.get('/', (req, res) => {
       // Use your own GitHub URL for this...
       githubUrl: 'https://github.com/EddieNg1/fragments',
       version,
+      hostname: hostname(),
     })
   );
 });
