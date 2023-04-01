@@ -20,25 +20,23 @@ describe('DELETE /v1/fragments:id', () => {
       .expect(404));
 
   test('successful delete returns 200', async () => {
-    request(app)
+    const res1 = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/plain')
-      .send('fragment data')
-      .expect(201)
-      .then((req) => {
-        const body = JSON.parse(req.text);
-        const id = body.fragment.id;
-        return request(app)
-          .delete(`/v1/fragments/${id}`)
-          .auth('user1@email.com', 'password1')
-          .expect(200);
-      });
-  });
+      .send('testData');
+    const body = JSON.parse(res1.text);
+    const id = body.fragment.id;
 
-  //   const res2 = await request(app)
-  //     .delete(`/v1/fragments/${id}`)
-  //     .auth('user1@email.com', 'password1');
-  //   expect(res2.statusCode).toBe(404);
-  // });
+    const res = await request(app)
+      .delete(`/v1/fragments/${id}`)
+      .auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('ok');
+
+    const res2 = await request(app)
+      .delete(`/v1/fragments/${id}`)
+      .auth('user1@email.com', 'password1');
+    expect(res2.statusCode).toBe(404);
+  });
 });
