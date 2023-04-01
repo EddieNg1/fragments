@@ -116,7 +116,6 @@ async function deleteFragment(ownerId, id) {
   try {
     // Use our client to send the command
     await s3Client.send(command);
-    metadata.del(ownerId, id);
   } catch (err) {
     // If anything goes wrong, log enough info that we can debug
     const { Bucket, Key } = params;
