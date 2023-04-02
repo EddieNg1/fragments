@@ -1,6 +1,6 @@
 const path = require('path');
 const { Fragment } = require('../../model/fragment');
-const { createSuccessResponse } = require('../../response');
+const { createSuccessResponse, createErrorResponse } = require('../../response');
 module.exports = async (req, res) => {
   try {
     const extension = path.extname(req.params.id);
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
       res.status(200).send(data);
     }
   } catch (error) {
-    throw new Error('Error getting fragment data by ID');
+    res.status(404).json(createErrorResponse(404, "Fragment doesn't exist"));
   }
 };
 
