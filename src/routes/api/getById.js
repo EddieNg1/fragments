@@ -5,7 +5,8 @@ module.exports = async (req, res) => {
   try {
     const extension = path.extname(req.params.id);
     const id = path.basename(req.params.id, extension);
-    const fragment = await Fragment.byId(req.user, id);
+    //const fragment = await Fragment.byId(req.user, id);
+    const fragment = new Fragment(await Fragment.byId(req.user, id));
     const data = await fragment.getData();
     if (extension) {
       const { convertedData, mimeType } = await fragment.convertedType(data, extension);
