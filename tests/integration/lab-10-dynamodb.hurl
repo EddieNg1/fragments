@@ -88,7 +88,7 @@ GET http://localhost:8080/v1/fragments
 user1@email.com:password1
 # Confirm that the server returns a 200
 HTTP/1.1 200
-# Confirm that the first id is NOT included but that the second id is included
+# Confirm that the first id is NOT included but that the second id
 [Asserts]
 jsonpath "$.fragments" not includes {{fragment1_id}}
 jsonpath "$.fragments" includes {{fragment2_id}}
