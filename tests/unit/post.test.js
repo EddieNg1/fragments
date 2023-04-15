@@ -62,7 +62,7 @@ describe('POST /v1/fragments', () => {
     const res = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
-      .set('Content-Type', 'image/png')
+      .set('Content-Type', 'video/ogg')
       .send('testData');
     expect(res.status).toEqual(415);
   });
