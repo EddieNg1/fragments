@@ -167,6 +167,10 @@ describe('Fragment class', () => {
         'text/markdown',
         'text/html',
         'application/json',
+        'image/png',
+        'image/jpeg',
+        'image/webp',
+        'image/gif',
       ]);
     });
   });
