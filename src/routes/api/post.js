@@ -11,11 +11,6 @@ module.exports = async (req, res, next) => {
   const contentType = req.headers['content-type'];
   logger.debug(`Fragment content type is ${contentType}`);
   try {
-    if (!Buffer.isBuffer(data)) {
-      const error = new Error(`Unsupported media type, got ${contentType}`);
-      error.status = 415;
-      throw error;
-    }
     const fragment = new Fragment({
       ownerId: user,
       type: contentType,
