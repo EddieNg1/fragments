@@ -12,6 +12,19 @@ describe('GET /v1/fragments:id', () => {
       .get('/v1/fragments/id')
       .auth('invalid@email.com', 'incorrect_password')
       .expect(401));
+
+  test('authenticated users get fragment', async () => {
+    const res1 = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain')
+      .send('testData');
+    const body = JSON.parse(res1.text);
+    const id = body.fragment.id;
+
+    const res = await request(app).get(`/v1/fragments/${id}`).auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(200);
+  });
 });
 
 describe('GET /v1/fragments:id/info', () => {

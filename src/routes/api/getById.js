@@ -3,19 +3,14 @@ const { Fragment } = require('../../model/fragment');
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 module.exports = async (req, res) => {
   try {
-    const extension = path.parse(req.params.id).ext.slice(1);
-    var id = path.parse(req.params.id).name;
-
+    const extension = path.extname(req.params.id);
+    const id = req.params.id;
     //const fragment = await Fragment.byId(req.user, id);
     const fragment = new Fragment(await Fragment.byId(req.user, id));
     const data = await fragment.getData();
     if (extension) {
-      // const { convertedData, mimeType } = await fragment.convertedType(data, extension);
-      // res.set('Content-Type', mimeType);
-      // res.status(200).send(convertedData);
-      var convertedData = await fragment.convertType(data, extension);
-      res.set('Content-Type', extension);
-      res.setHeader('Location', `${process.env.API_URL}/v1/fragments/${fragment.id}`);
+      const { convertedData, mimeType } = await fragment.convertType(data, extension);
+      res.set('Content-Type', mimeType);
       res.status(200).send(convertedData);
     } else {
       res.set('Content-Type', fragment.type);
