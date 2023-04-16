@@ -11,18 +11,16 @@ module.exports = async (req, res) => {
     }
     //const fragment = await Fragment.byId(req.user, id);
     const fragment = new Fragment(await Fragment.byId(req.user, id));
-    const data = await fragment.getData();
+    const fragmentData = await fragment.getData();
+    var type;
     if (fragment.formats.includes(extension)) {
-      // const { convertedData, mimeType } = await fragment.convertedType(data, extension);
-      // res.set('Content-Type', mimeType);
-      // res.status(200).send(convertedData);
-      var convertedData = await fragment.convertType(data, extension);
-      res.set('Content-Type', extension);
-      res.status(200).send(convertedData);
-    } else {
-      res.set('Content-Type', fragment.type);
-      res.status(200).send(data);
+      type = extension;
+    } else if (extension == false) {
+      type = fragment.mimeType;
     }
+    var data = fragment.convertData(fragmentData, type);
+    res.setHeader('Content-type', type);
+    res.status(200).send(data);
   } catch (error) {
     res.status(404).json(createErrorResponse(404, "Fragment doesn't exist"));
   }
