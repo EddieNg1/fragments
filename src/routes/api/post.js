@@ -16,8 +16,8 @@ module.exports = async (req, res, next) => {
         ownerId: user,
         type: contentType,
       });
-      await fragment.save();
       await fragment.setData(data);
+      await fragment.save();
 
       logger.info('Successfully created fragment');
       res.setHeader('Location', `${api}/v1/fragments/${fragment.id}`);

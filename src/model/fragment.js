@@ -16,16 +16,16 @@ const {
   deleteFragment,
 } = require('./data');
 
-// const validTypes = [
-//   `text/plain`,
-//   `text/markdown`,
-//   `text/html`,
-//   `application/json`,
-//   `image/png`,
-//   `image/jpeg`,
-//   `image/webp`,
-//   `image/gif`,
-// ];
+const validTypes = [
+  `text/plain`,
+  `text/markdown`,
+  `text/html`,
+  `application/json`,
+  `image/png`,
+  `image/jpeg`,
+  `image/webp`,
+  `image/gif`,
+];
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
@@ -194,20 +194,8 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    if (
-      value === 'text/plain' ||
-      value === 'text/plain; charset=utf-8' ||
-      value === 'text/markdown' ||
-      value === 'text/html' ||
-      value === 'application/json' ||
-      value === 'image/png' ||
-      value === 'image/jpeg' ||
-      value === 'image/webp' ||
-      value === 'image/gif'
-    ) {
-      return true;
-    }
-    return false;
+    const { type } = contentType.parse(value);
+    return validTypes.includes(type);
   }
 
   async convertType(data, type) {
