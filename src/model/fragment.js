@@ -166,7 +166,26 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    return validTypes;
+    switch (this.mimeType) {
+      case 'text/plain':
+        return ['text/plain'];
+      case 'text/markdown':
+        return ['text/plain', 'text/markdown', 'text/html'];
+      case 'text/html':
+        return ['text/html', 'text/plain'];
+      case 'application/json':
+        return ['application/json', 'text/plain'];
+      case 'image/png':
+        return ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+      case 'image/jpeg':
+        return ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+      case 'image/gif':
+        return ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+      case 'image/webp':
+        return ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+      default:
+        return [this.mimeType];
+    }
   }
 
   /**

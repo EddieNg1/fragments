@@ -1,17 +1,18 @@
-const path = require('path');
+//const path = require('path');
+const mime = require('mime-types');
 const { Fragment } = require('../../model/fragment');
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 module.exports = async (req, res) => {
   try {
-    const extension = path.extname(req.params.id);
-    var id = path.basename(req.params.id, extension);
+    var id = req.params.id;
+    var extension = mime.lookup(id);
     if (req.params.id.includes('.')) {
       id = req.params.id.split('.').slice(0, -1).join('.');
     }
     //const fragment = await Fragment.byId(req.user, id);
     const fragment = new Fragment(await Fragment.byId(req.user, id));
     const data = await fragment.getData();
-    if (extension) {
+    if (fragment.formats.includes(extension)) {
       // const { convertedData, mimeType } = await fragment.convertedType(data, extension);
       // res.set('Content-Type', mimeType);
       // res.status(200).send(convertedData);
