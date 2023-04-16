@@ -9,8 +9,11 @@ module.exports = async (req, res) => {
     const fragment = new Fragment(await Fragment.byId(req.user, id));
     const data = await fragment.getData();
     if (extension) {
-      const { convertedData, mimeType } = await fragment.convertedType(data, extension);
-      res.set('Content-Type', mimeType);
+      // const { convertedData, mimeType } = await fragment.convertedType(data, extension);
+      // res.set('Content-Type', mimeType);
+      // res.status(200).send(convertedData);
+      var convertedData = await fragment.convertType(data, extension);
+      res.set('Content-Type', extension);
       res.status(200).send(convertedData);
     } else {
       res.set('Content-Type', fragment.type);
