@@ -3,11 +3,9 @@ const { Fragment } = require('../../model/fragment');
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 module.exports = async (req, res) => {
   try {
-    const extension = path.extname(req.params.id);
-    var id = path.basename(req.params.id, extension);
-    if (req.params.id.includes('.')) {
-      id = req.params.id.split('.').slice(0, -1).join('.');
-    }
+    const extension = path.parse(req.params.id).ext.slice(1);
+    var id = path.parse(req.params.id).name;
+
     //const fragment = await Fragment.byId(req.user, id);
     const fragment = new Fragment(await Fragment.byId(req.user, id));
     const data = await fragment.getData();
