@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
     try {
       const fragment = new Fragment({
         ownerId: user,
-        type: contentType,
+        type: req.get('Content-Type'),
       });
       await fragment.setData(data);
       await fragment.save();
