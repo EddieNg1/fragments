@@ -4,7 +4,10 @@ const { createSuccessResponse, createErrorResponse } = require('../../response')
 module.exports = async (req, res) => {
   try {
     const extension = path.extname(req.params.id);
-    const id = path.basename(req.params.id, extension);
+    var id = path.basename(req.params.id, extension);
+    if (req.params.id.includes('.')) {
+      id = req.params.id.split('.').slice(0, -1).join('.');
+    }
     //const fragment = await Fragment.byId(req.user, id);
     const fragment = new Fragment(await Fragment.byId(req.user, id));
     const data = await fragment.getData();
