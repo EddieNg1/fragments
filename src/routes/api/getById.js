@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     } else if (extension == false) {
       type = fragment.mimeType;
     }
-    var data = fragment.convertData(fragmentData, type);
+    var data = fragment.convertType(fragmentData, type);
     res.setHeader('Content-type', type);
     res.status(200).send(data);
   } catch (error) {
