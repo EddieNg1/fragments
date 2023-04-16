@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
       id = req.params.id.split('.').slice(0, -1).join('.');
     }
     //const fragment = await Fragment.byId(req.user, id);
-    const fragment = new Fragment(await Fragment.byId(req.user, id));
+    const fragment = await Fragment.byId(req.user, id);
     const fragmentData = await fragment.getData();
     var type;
     if (fragment.formats.includes(extension)) {
