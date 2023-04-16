@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Fragment } = require('../../model/fragment');
-const { createSuccessResponse } = require('../../response');
+const { createSuccessResponse, createErrorResponse } = require('../../response');
 const logger = require('../../logger');
 
 module.exports = async (req, res, next) => {
@@ -10,18 +10,22 @@ module.exports = async (req, res, next) => {
   const user = req.user;
   const contentType = req.headers['content-type'];
   logger.debug(`Fragment content type is ${contentType}`);
-  try {
-    const fragment = new Fragment({
-      ownerId: user,
-      type: contentType,
-    });
-    await fragment.save();
-    await fragment.setData(data);
+  if (Fragment.isSupportedType(req.get('Content-Type'))) {
+    try {
+      const fragment = new Fragment({
+        ownerId: user,
+        type: contentType,
+      });
+      await fragment.save();
+      await fragment.setData(data);
 
-    logger.info('Successfully created fragment');
-    res.setHeader('Location', `${api}/v1/fragments/${fragment.id}`);
-    res.status(201).json(createSuccessResponse({ fragment }));
-  } catch (error) {
-    next(error);
+      logger.info('Successfully created fragment');
+      res.setHeader('Location', `${api}/v1/fragments/${fragment.id}`);
+      res.status(201).json(createSuccessResponse({ fragment }));
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    res.status(415).json(createErrorResponse(415, 'Unsupported Content Type'));
   }
 };
