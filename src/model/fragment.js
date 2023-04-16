@@ -206,13 +206,13 @@ class Fragment {
         }
         return data;
       case 'image/png':
-        return sharp(data).toFormat('png');
+        return sharp(data).png();
       case 'image/jpeg':
-        return sharp(data).toFormat('jpeg');
+        return sharp(data).jpeg();
       case 'image/gif':
-        return sharp(data).toFormat('gif');
+        return sharp(data).gif();
       case 'image/webp':
-        return sharp(data).toFormat('webp');
+        return sharp(data).webp();
       case 'text/plain':
         return data.toString();
       default:

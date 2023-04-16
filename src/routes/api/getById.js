@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
       // res.status(200).send(convertedData);
       var convertedData = await fragment.convertType(data, extension);
       res.set('Content-Type', extension);
+      res.setHeader('Location', `${process.env.API_URL}/v1/fragments/${fragment.id}`);
       res.status(200).send(convertedData);
     } else {
       res.set('Content-Type', fragment.type);
