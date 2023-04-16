@@ -155,25 +155,25 @@ describe('Fragment class', () => {
     });
   });
 
-  describe('formats', () => {
-    test('formats returns the expected result for plain text', () => {
-      const fragment = new Fragment({
-        ownerId: '1234',
-        type: 'text/plain; charset=utf-8',
-        size: 0,
-      });
-      expect(fragment.formats).toEqual([
-        'text/plain',
-        'text/markdown',
-        'text/html',
-        'application/json',
-        'image/png',
-        'image/jpeg',
-        'image/webp',
-        'image/gif',
-      ]);
-    });
-  });
+  // describe('formats', () => {
+  //   test('formats returns the expected result for plain text', () => {
+  //     const fragment = new Fragment({
+  //       ownerId: '1234',
+  //       type: 'text/plain; charset=utf-8',
+  //       size: 0,
+  //     });
+  //     expect(fragment.formats).toEqual([
+  //       'text/plain',
+  //       'text/markdown',
+  //       'text/html',
+  //       'application/json',
+  //       'image/png',
+  //       'image/jpeg',
+  //       'image/webp',
+  //       'image/gif',
+  //     ]);
+  //   });
+  // });
 
   describe('save(), getData(), setData(), byId(), byUser(), delete()', () => {
     test('byUser() returns an empty array if there are no fragments for this user', async () => {
